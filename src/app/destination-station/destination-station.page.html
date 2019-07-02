@@ -4,24 +4,25 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      But Tickets - Destination
+      Buy Tickets
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Select Destination Station </h3>
+  <h3 text-center>Select Destination Station</h3>
   <ion-searchbar placeholder="Filter Stations" showCancelButton="focus" cancelButtonText="Cancel" animated
     [(ngModel)]="searchStation" (ionChange)="filterStations()">
   </ion-searchbar>
+  <ion-progress-bar *ngIf="loading" type="indeterminate" reversed="true"></ion-progress-bar>
   <ion-list>
     <ion-item *ngFor="let station of filtered_stations">
-      <ion-icon name="log-in" slot="start"></ion-icon>
+      <ion-icon name="log-out" slot="start"></ion-icon>
       <ion-label>
         <h3>{{station.route}}</h3>
-        <p>{{station.line}}</p>
+        <p>Lines: {{station.line}}</p>
       </ion-label>
-      <ion-button slot="end">
+      <ion-button slot="end" (click)="setDestinationStation(station)">
         <ion-icon name="arrow-round-forward"></ion-icon>
       </ion-button>
     </ion-item>

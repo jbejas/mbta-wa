@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Buy Tickets</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h3 text-center>SUCCESS!!!</h3>
+  <p text-center>Your ticket is ready to use.</p>
+  <p text-center>Please present the following QRCode when boarding the Train.</p>
+  <p text-center text-center class="ion-justify-content-center" align-self-center>
+    <img id="qrcode" [src]="ticketQRCode">
+  </p>
+  <p text-center>
+    <ion-button shape="round" color="danger" (click)="backHome()">HOME</ion-button>
+  </p>
+</ion-content>

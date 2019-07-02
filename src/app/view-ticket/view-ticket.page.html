@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>View Ticket</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <p text-center text-center class="ion-justify-content-center" align-self-center>
+    <img id="qrcode" [src]="ticketQRCode">
+  </p>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col no-padding size="12" size-sm>
+        <p no-margin text-center>
+          <ion-badge size="large" color="primary">ORIGIN</ion-badge>
+        </p>
+        <h3 text-center no-margin>{{trip.origin_station.route}}</h3>
+        <p no-margin text-center><small>Lines: {{trip.origin_station.line}}</small></p>
+      </ion-col>
+      <ion-col size="12" size-sm text-center class="ion-justify-content-center" align-self-center>
+        <ion-icon size="large" name="arrow-forward"></ion-icon>
+      </ion-col>
+      <ion-col size="12" size-sm no-padding text-center class="ion-justify-content-center" align-self-center>
+        <p no-margin>
+          <small>Purchased On</small>
+        </p>
+        <p no-margin>
+          <ion-badge color="success">{{trip.purchased_on}}</ion-badge>
+        </p>
+      </ion-col>
+      <ion-col size="12" size-sm text-center class="ion-justify-content-center" align-self-center>
+        <ion-icon size="large" name="arrow-forward"></ion-icon>
+      </ion-col>
+      <ion-col no-padding size="12" size-sm>
+        <p no-margin text-center>
+          <ion-badge size="large" color="primary">DESTINATION</ion-badge>
+        </p>
+        <h3 no-margin text-center>{{trip.destination_station.route}}</h3>
+        <p no-margin text-center><small>Lines: {{trip.destination_station.line}}</small></p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <p text-center>
+    <ion-button shape="round" color="danger" (click)="backHome()">HOME</ion-button>
+  </p>
+</ion-content>

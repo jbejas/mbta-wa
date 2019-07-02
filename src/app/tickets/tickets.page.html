@@ -4,26 +4,38 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      But Tickets
+      Buy Tickets
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Select Origin Station </h3>
-  <ion-searchbar placeholder="Filter Stations" showCancelButton="focus" cancelButtonText="Cancel" animated
-    [(ngModel)]="searchStation" (ionChange)="filterStations()">
-  </ion-searchbar>
-  <ion-list>
-    <ion-item *ngFor="let station of filtered_stations">
-      <ion-icon name="log-in" slot="start"></ion-icon>
-      <ion-label>
-        <h3>{{station.route}}</h3>
-        <p>{{station.line}}</p>
-      </ion-label>
-      <ion-button slot="end">
-        <ion-icon name="arrow-round-forward"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
+  <h3 text-center>SELECTED TRIP</h3>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <p text-center>
+          <ion-badge size="large" color="primary">ORIGIN</ion-badge>
+        </p>
+        <h3 text-center>{{selected_stations[0].origin_station.route}}</h3>
+        <p text-center>Lines: {{selected_stations[0].origin_station.line}}</p>
+      </ion-col>
+      <ion-col text-center class="ion-justify-content-center" align-self-center>
+        <ion-icon size="large" name="arrow-forward"></ion-icon>
+      </ion-col>
+      <ion-col>
+        <p text-center>
+          <ion-badge size="large" color="primary">DESTINATION</ion-badge>
+        </p>
+        <h3 text-center>{{selected_stations[0].destination_station.route}}</h3>
+        <p text-center>Lines: {{selected_stations[0].destination_station.line}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p text-center>
+    <ion-button shape="round" color="success" size="large" (click)="buyTicket()">BUY TICKET</ion-button>
+  </p>
+  <p text-center>
+    <ion-button shape="round" color="danger" size="large" (click)="cancelTrip()">CANCEL</ion-button>
+  </p>
 </ion-content>

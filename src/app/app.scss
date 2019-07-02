@@ -4,3 +4,20 @@
 // styles are for the entire app and not just one component. Additionally, this 
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
+
+.item.sc-ion-label-ios-h,
+.item .sc-ion-label-ios-h {
+    white-space: unset !important;
+}
+
+ion-row {
+    border-bottom: 1px solid #cacaca;
+    margin-bottom: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+.trip_log_text {
+    border-bottom: 1px solid #cacaca;
+    margin-bottom: 8px !important;
+    padding-bottom: 8px !important;
+}

@@ -38,7 +38,6 @@ export class OriginStationPage implements OnInit {
   filterStations() {
     this.filtered_stations = [];
     this.stations.filter(station => {
-      console.log("Filtered Data", station.route.toLowerCase().indexOf(this.searchStation.toLowerCase()) > -1);
       if (station.route.toLowerCase().indexOf(this.searchStation.toLowerCase()) > -1) {
         this.filtered_stations.push({
           route: station.route,
@@ -48,9 +47,8 @@ export class OriginStationPage implements OnInit {
     });
   }
 
-  setOriginStation(station) {
-    console.log("Origin Station", station);
-    this.router.navigate(['destination-station'], { queryParams: station });
+  setOriginStation(origin_station) {
+    this.router.navigate(['destination-station'], { queryParams: origin_station });
   }
 
 }

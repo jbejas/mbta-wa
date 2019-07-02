@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router, ActivatedRoute } from '@angular/router';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-tickets',
@@ -9,43 +12,64 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class TicketsPage implements OnInit {
 
   public stations: any = [];
-  public filtered_stations: any = [];
-  public searchStation: string = "";
+  public selected_stations: any;
+  public trips: any;
 
   constructor(
-    public db: AngularFirestore
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    public db: AngularFirestore,
+    public alertController: AlertController
   ) {
 
   }
 
   ngOnInit() {
-    this.db.collection("stations").get().subscribe(stations => {
-      stations.forEach(station => {
-        let station_data = station.data();
-        this.stations.push({
-          route: station_data.route,
-          line: station_data.line
-        });
+    this.activatedRoute.queryParamMap
+      .subscribe(queryParams => {
+        this.selected_stations = JSON.parse(queryParams["params"].special);
+        console.log("Selected Stations", this.selected_stations);
       });
-      this.filtered_stations = this.stations;
-    });
   }
 
-  filterStations() {
-    this.filtered_stations = [];
-    this.stations.filter(station => {
-      console.log("Filtered Data", station.route.toLowerCase().indexOf(this.searchStation.toLowerCase()) > -1);
-      if (station.route.toLowerCase().indexOf(this.searchStation.toLowerCase()) > -1) {
-        this.filtered_stations.push({
-          route: station.route,
-          line: station.line
-        });
-      }
-    });
+  buyTicket() {
+    if (window.localStorage.getItem("mbta_trips")) {
+      this.trips = JSON.parse(window.localStorage.getItem("mbta_trips"));
+    } else {
+      this.trips = [];
+    }
+
+    let purchased_on = moment().format("LLL");
+
+    this.selected_stations[0].purchased_on = purchased_on;
+
+    this.trips.push(this.selected_stations[0]);
+
+    window.localStorage.setItem("mbta_trips", JSON.stringify(this.trips));
+
+    this.router.navigate(['ticket-purchase-complete'], { queryParams: { special: purchased_on } });
   }
 
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/tickets', JSON.stringify(item)]);
-  // }
+  async cancelTrip() {
+    const alert = await this.alertController.create({
+      header: 'Cancel Trip',
+      message: 'You are about to cancel your trip. Are you sure?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel');
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            this.router.navigate(['home']);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
 }

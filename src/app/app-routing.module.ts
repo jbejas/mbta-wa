@@ -16,7 +16,9 @@ const routes: Routes = [
     loadChildren: './tickets/tickets.module#TicketsPageModule'
   },
   { path: 'origin-station', loadChildren: './origin-station/origin-station.module#OriginStationPageModule' },
-  { path: 'destination-station', loadChildren: './destination-station/destination-station.module#DestinationStationPageModule' }
+  { path: 'destination-station', loadChildren: './destination-station/destination-station.module#DestinationStationPageModule' },
+  { path: 'ticket-purchase-complete', loadChildren: './ticket-purchase-complete/ticket-purchase-complete.module#TicketPurchaseCompletePageModule' },
+  { path: 'view-ticket', loadChildren: './view-ticket/view-ticket.module#ViewTicketPageModule' }
 ];
 
 @NgModule({
