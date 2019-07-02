@@ -22,6 +22,7 @@ export class OriginStationPage implements OnInit {
   }
 
   ngOnInit() {
+    // Query Firebase Firestore Stations Collection and populate object
     this.db.collection("stations").get().subscribe(stations => {
       stations.forEach(station => {
         let station_data = station.data();
@@ -30,13 +31,16 @@ export class OriginStationPage implements OnInit {
           line: station_data.line
         });
       });
+      // Populate Dummy object to be able to filter without mutating original stations object.
       this.filtered_stations = this.stations;
       this.loading = false;
     });
   }
 
   filterStations() {
+    // Reset filtered stations object.
     this.filtered_stations = [];
+    // Filter main stations object and populate dummy object with results.
     this.stations.filter(station => {
       if (station.route.toLowerCase().indexOf(this.searchStation.toLowerCase()) > -1) {
         this.filtered_stations.push({
@@ -47,6 +51,7 @@ export class OriginStationPage implements OnInit {
     });
   }
 
+  // Get origin station selected and send data to destination station selections for further usage.
   setOriginStation(origin_station) {
     this.router.navigate(['destination-station'], { queryParams: origin_station });
   }

@@ -19,6 +19,7 @@ export class ViewTicketPage implements OnInit {
 
   ngOnInit() {
 
+    // Get Trip information passed from Home.
     this.activatedRoute.queryParamMap
       .subscribe(queryParams => {
         this.trip = JSON.parse(queryParams["params"].special);
