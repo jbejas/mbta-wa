@@ -26,26 +26,35 @@ export class DestinationStationPage implements OnInit {
 
   ngOnInit() {
 
+    // Get Origin Station data.
     this.activatedRoute.queryParamMap
       .subscribe(queryParams => {
         this.origin_station = queryParams["params"];
 
+        // Loop over all lines on station.
         this.origin_station.line.forEach(origin_station_line => {
 
+          // Query Firebase for all stations that have the origin station lines.
           this.db.collection("stations", ref =>
             ref.where("line", "array-contains", origin_station_line)
           ).get().subscribe(stations => {
 
+            // If the station has any of the Lines, loop.
             if (stations.size) {
               stations.forEach(station => {
+
+                // Setup station data.
                 let station_data = station.data();
 
+                // Find is the selected station exists in object. If not, add it. If is the same as the origin station, exclude.
                 if (!this.stations.find(s => s.route == station_data.route) && station_data.route != this.origin_station.route) {
+                  // Populate Stations main object.
                   this.stations.push({
                     route: station_data.route,
                     line: station_data.line
                   });
 
+                  // Populate Dummy stations object.
                   this.filtered_stations.push({
                     route: station_data.route,
                     line: station_data.line
@@ -54,12 +63,14 @@ export class DestinationStationPage implements OnInit {
 
               });
             }
+            // Hide Loading. Needs further correction.
             this.loading = false;
           });
         });
       });
   }
 
+  // Filter stations.
   filterStations() {
     this.filtered_stations = [];
     this.stations.filter(station => {
@@ -72,6 +83,7 @@ export class DestinationStationPage implements OnInit {
     });
   }
 
+  // Set origin and destination stations and navigate to Tickets View.
   setDestinationStation(destination_station) {
     let selected_stations = [];
     selected_stations.push({
