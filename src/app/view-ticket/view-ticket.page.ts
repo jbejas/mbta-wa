@@ -38,6 +38,7 @@ export class ViewTicketPage implements OnInit {
 
   }
 
+  // Self explanatory.
   backHome() {
     this.router.navigate(['home']);
   }
