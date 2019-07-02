@@ -4,13 +4,24 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      But Tickets
+      But Tickets - Origin
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Select Origin Station </h3>
+
+  <ion-grid>
+    <ion-row no-padding>
+      <ion-col size="8" no-padding>
+        <h3>Select Origin Station </h3>
+      </ion-col>
+      <ion-col size="4" no-padding class="ion-justify-content-center" align-self-center>
+        <ion-progress-bar *ngIf="loading" type="indeterminate" reversed="true"></ion-progress-bar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-searchbar placeholder="Filter Stations" showCancelButton="focus" cancelButtonText="Cancel" animated
     [(ngModel)]="searchStation" (ionChange)="filterStations()">
   </ion-searchbar>
@@ -21,7 +32,7 @@
         <h3>{{station.route}}</h3>
         <p>{{station.line}}</p>
       </ion-label>
-      <ion-button slot="end">
+      <ion-button slot="end" (click)="setOriginStation(station)">
         <ion-icon name="arrow-round-forward"></ion-icon>
       </ion-button>
     </ion-item>

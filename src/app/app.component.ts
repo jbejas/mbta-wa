@@ -17,8 +17,8 @@ export class AppComponent {
     },
     {
       title: 'Buy Tickets',
-      url: '/tickets',
-      icon: 'list'
+      url: '/origin-station',
+      icon: 'git-compare'
     }
   ];
 

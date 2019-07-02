@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tickets',
-  templateUrl: 'tickets.page.html',
-  styleUrls: ['tickets.page.scss']
+  selector: 'app-origin-station',
+  templateUrl: './origin-station.page.html',
+  styleUrls: ['./origin-station.page.scss'],
 })
-export class TicketsPage implements OnInit {
+export class OriginStationPage implements OnInit {
 
   public stations: any = [];
   public filtered_stations: any = [];
   public searchStation: string = "";
+  public loading: boolean = true;
 
   constructor(
+    private router: Router,
     public db: AngularFirestore
   ) {
 
@@ -28,6 +31,7 @@ export class TicketsPage implements OnInit {
         });
       });
       this.filtered_stations = this.stations;
+      this.loading = false;
     });
   }
 
@@ -44,8 +48,9 @@ export class TicketsPage implements OnInit {
     });
   }
 
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/tickets', JSON.stringify(item)]);
-  // }
+  setOriginStation(station) {
+    console.log("Origin Station", station);
+    this.router.navigate(['destination-station'], { queryParams: station });
+  }
+
 }
